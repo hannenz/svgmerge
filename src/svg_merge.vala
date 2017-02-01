@@ -11,19 +11,16 @@ namespace SVGMerge {
 		protected static bool extract_defs = false;
 		protected static string svg_attributes = "style=\"display:none\"";
 		protected static string xmlns = "http://www.w3.org/2000/svg";
-		/* protected static  string svgtag = """<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0" height="0" style="width:0;height:0;display:block">"""; */
 
 		protected List<File> files;
 		/* private List<string> used_ids = new List<string>(); */
 
 		private const GLib.OptionEntry[] options = {
-			{ "version", 'v', 0, OptionArg.NONE, ref show_version, "Display version number", null },
 			{ "output",  'o', 0, OptionArg.FILENAME, ref outfile_path, "Specify a file to write the resulting SVG to. Outputs to stdout if omitted", null },
 			{ "prefix", 'p', 0, OptionArg.STRING, ref prefix, "Prefix each symbol's id with this string", null },
 			{ "extract-defs", 'd', 0, OptionArg.NONE, ref extract_defs, "Extract defs to a global defs block" },
 			{ "svg-attr", 'a', 0, OptionArg.STRING, ref svg_attributes, "Attributes to add to the SVG tag" },
 			{ "xmlns", 'x', 0, OptionArg.STRING, ref xmlns, "XML namespace to use for the SVG tag"},
-			/* { "svgtag", 's', 0, OptionArg.STRING, ref svgtag, "The opening SVG tag to be used" }, */
 			{ null }
 		};
 
@@ -80,6 +77,7 @@ namespace SVGMerge {
 			Xml.Doc *out = new Xml.Doc();
 			Xml.Node *root = new Xml.Node(null, "svg");
 			Xml.Ns *namespace = new Xml.Ns(root, "http://www.w3.org/2000/svg", "svg");
+			// TODO: Pass attributes from cli args
 			root->set_prop("style", "display:none");
 			out->set_root_element(root);
 
