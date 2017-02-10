@@ -11,6 +11,7 @@ namespace SVGMerge {
 		protected static bool extract_defs = false;
 		protected static string svg_attributes = "style=\"display:none\"";
 		protected static string xmlns = "http://www.w3.org/2000/svg";
+		protected static bool no_xmlns = false;
 
 		protected List<File> files;
 		/* private List<string> used_ids = new List<string>(); */
@@ -21,6 +22,7 @@ namespace SVGMerge {
 			{ "extract-defs", 'd', 0, OptionArg.NONE, ref extract_defs, "Extract defs to a global defs block" },
 			{ "svg-attr", 'a', 0, OptionArg.STRING, ref svg_attributes, "Attributes to add to the SVG tag" },
 			{ "xmlns", 'x', 0, OptionArg.STRING, ref xmlns, "XML namespace to use for the SVG tag"},
+			{ "no-xmlns", 'X', 0, OptionArg.NONE, ref no_xmlns, "No XML namspace (for inlilne usage in HTML)"},
 			{ null }
 		};
 
@@ -76,7 +78,10 @@ namespace SVGMerge {
 
 			Xml.Doc *out = new Xml.Doc();
 			Xml.Node *root = new Xml.Node(null, "svg");
-			Xml.Ns *namespace = new Xml.Ns(root, "http://www.w3.org/2000/svg", "svg");
+			if (!no_xmlns) {
+				Xml.Ns *namespace = new Xml.Ns(root, "http://www.w3.org/2000/svg", "");
+			}
+
 			// TODO: Pass attributes from cli args
 			root->set_prop("style", "display:none");
 			out->set_root_element(root);

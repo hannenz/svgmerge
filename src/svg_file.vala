@@ -75,7 +75,9 @@ namespace SVGMerge {
 			string filename = this.path.get_basename();
 			
 			try {
-				Regex regex = new Regex("\\.svg$");
+				/* Regex regex = new Regex("\\.svg$"); */
+				Regex regex = new Regex("\\..*$");
+
 				id = regex.replace(filename, filename.length, 0, "");
 				regex = new Regex("\\W+");
 				id = regex.replace(id, id.length, 0, "-");
