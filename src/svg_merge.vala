@@ -79,7 +79,8 @@ namespace SVGMerge {
 			Xml.Doc *out = new Xml.Doc();
 			Xml.Node *root = new Xml.Node(null, "svg");
 			if (!no_xmlns) {
-				Xml.Ns *namespace = new Xml.Ns(root, "http://www.w3.org/2000/svg", "");
+				Xml.Ns *svgns = new Xml.Ns(root, "http://www.w3.org/2000/svg", null);
+				Xml.Ns *xlinkns = new Xml.Ns(root, "http://www.w3.org/2000/xlink", "xlink");
 			}
 
 			// TODO: Pass attributes from cli args
